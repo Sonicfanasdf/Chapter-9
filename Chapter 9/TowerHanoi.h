@@ -3,6 +3,8 @@
 #include<stack>
 #include<string>
 #include<iomanip>
+#include<chrono>
+#include<thread>
 
 using namespace std;
 
@@ -14,6 +16,7 @@ private:
 	stack<int> pegA;
 	stack<int> pegB;
 	stack<int> pegC;
+	stack<int> result;
 	int size;
 public:
 	void setSize(int newSize);

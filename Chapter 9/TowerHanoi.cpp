@@ -17,22 +17,65 @@ void TowerHanoi::hanoiMenu()
 
 	initializePegs();
 
-	//updatePegs();
+	updatePegs();
 
-	displayPegs();
+	//displayPegs();
+
 	
 }
 void TowerHanoi::updatePegs()
 {
-	if (pegA.size() == size)
+	if (!(pegC == result))
 	{
-		pegC.push(pegA.top());
-		pegA.pop();
-	}
-	else if (pegA.top() > pegC.top())
-	{
-		pegB.push(pegA.top());
-		pegA.pop();
+		if (!pegA.empty() && pegA.size() == size)
+		{
+			pegC.push(pegA.top());
+			pegA.pop();
+		}
+		else if (pegB.empty() && pegC.size() == 1)
+		{
+			pegB.push(pegA.top());
+			pegA.pop();
+		}
+		else if (!pegA.empty()&& !pegB.empty() && !pegC.empty() && pegA.top() > pegC.top() && pegA.top() < pegB.top())
+		{
+			pegB.push(pegA.top());
+			pegA.pop();
+		}
+		else if (!pegC.empty() && !pegB.empty() && pegC.top() < pegB.top())
+		{
+			pegB.push(pegC.top());
+			pegC.pop();
+		}
+		else if (pegC.empty())
+		{
+			pegC.push(pegA.top());
+			pegA.pop();
+		}
+		else if (!pegB.empty() && !pegA.empty() && pegB.top() < pegA.top())
+		{
+			pegA.push(pegB.top());
+			pegB.pop();
+		}
+		else if (!pegB.empty() && !pegC.empty() && pegB.top() < pegC.top())
+		{
+			pegC.push(pegB.top());
+			pegB.pop();
+		}
+		else if (!pegA.empty() && !pegC.empty() && pegA.top() < pegC.top())
+		{
+			pegC.push(pegA.top());
+			pegA.pop();
+		}
+		else if (pegB.empty())
+		{
+			pegB.push(pegA.top());
+			pegA.pop();
+		}
+		
+		displayPegs();
+		this_thread::sleep_for(chrono::seconds(2));
+		updatePegs();
 	}
 }
 void TowerHanoi::initializePegs()
@@ -54,6 +97,11 @@ void TowerHanoi::initializePegs()
 	{
 		pegC.pop();
 	}
+
+	if (pegA.size() == size)
+	{
+		result = pegA;
+	}
 }
 void TowerHanoi::displayPegs()
 {
@@ -61,7 +109,7 @@ void TowerHanoi::displayPegs()
 	stack<int> tempB(pegB);
 	stack<int> tempC(pegC);
 
-	cout << string(13, char(255)) << char(186) << string(15, char(255)) << char(186) << string(15, char(255)) << char(186) << endl;
+	cout << endl << string(13, char(255)) << char(186) << string(15, char(255)) << char(186) << string(15, char(255)) << char(186) << endl;
 
 	/*if (size <= 9)
 	{
