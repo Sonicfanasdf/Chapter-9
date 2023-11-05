@@ -27,52 +27,50 @@ void TowerHanoi::updatePegs()
 {
 	if (!(pegC == result))
 	{
-		if (!pegA.empty() && pegA.size() == size)
+		if (moves == 1)
 		{
 			pegC.push(pegA.top());
 			pegA.pop();
+			moves++;
 		}
-		else if (pegB.empty() && pegC.size() == 1)
+		else if (moves == 2)
 		{
 			pegB.push(pegA.top());
 			pegA.pop();
-		}
-		else if (!pegA.empty()&& !pegB.empty() && !pegC.empty() && pegA.top() > pegC.top() && pegA.top() < pegB.top())
-		{
-			pegB.push(pegA.top());
-			pegA.pop();
+			moves++;
 		}
 		else if (!pegC.empty() && !pegB.empty() && pegC.top() < pegB.top())
 		{
 			pegB.push(pegC.top());
 			pegC.pop();
+			moves++;
 		}
-		else if (pegC.empty())
+		else if ((!pegA.empty() && !pegB.empty() && pegA.top() > pegB.top() && pegC.empty()) || (!pegA.empty() && !pegB.empty() && pegA.top() > pegB.top() && !pegC.empty() && pegA.top() < pegC.top()))
 		{
 			pegC.push(pegA.top());
 			pegA.pop();
+			moves++; 
 		}
-		else if (!pegB.empty() && !pegA.empty() && pegB.top() < pegA.top())
+		else if ((!pegB.empty() && pegA.empty()) || (!pegB.empty() && !pegA.empty() && pegB.top() < pegA.top()))
 		{
 			pegA.push(pegB.top());
 			pegB.pop();
+			moves++;
 		}
 		else if (!pegB.empty() && !pegC.empty() && pegB.top() < pegC.top())
 		{
 			pegC.push(pegB.top());
 			pegB.pop();
+			moves++;
 		}
 		else if (!pegA.empty() && !pegC.empty() && pegA.top() < pegC.top())
 		{
 			pegC.push(pegA.top());
 			pegA.pop();
+			moves++;
 		}
-		else if (pegB.empty())
-		{
-			pegB.push(pegA.top());
-			pegA.pop();
-		}
-		
+	
+
 		displayPegs();
 		this_thread::sleep_for(chrono::seconds(2));
 		updatePegs();

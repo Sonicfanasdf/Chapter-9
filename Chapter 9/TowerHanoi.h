@@ -18,6 +18,7 @@ private:
 	stack<int> pegC;
 	stack<int> result;
 	int size;
+	int moves = 1;
 public:
 	void setSize(int newSize);
 	int getSize() const;
