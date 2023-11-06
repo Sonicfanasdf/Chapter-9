@@ -9,6 +9,7 @@
 using namespace std;
 
 int inputInteger(string prompt, int startRange, int endRange);
+char inputChar(string prompt, string options);
 
 class TowerHanoi
 {
