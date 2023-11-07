@@ -24,7 +24,7 @@ public:
 	void setSize(int newSize);
 	int getSize() const;
 	void hanoiMenu();
-	void updatePegs();
+	void updatePegs(int turns);
 	void initializePegs();
 	void displayPegs();
 };

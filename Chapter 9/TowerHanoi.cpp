@@ -1,16 +1,24 @@
 #include "TowerHanoi.h"
 
+//Precondition: An positve integer
+//Postcondition: Sets size 
 void TowerHanoi::setSize(int newSize)
 {
 	size = newSize;
 }
+//Precondition: NA
+//Postcondition: returns size
 int TowerHanoi::getSize() const
 {
 	return size;
 }
+//Precondition: NA
+//Postcondition: Displays hanoiMenu
 void TowerHanoi::hanoiMenu()
 {
+	int turns;
 	char choice;
+
 	
 	do
 	{
@@ -22,11 +30,13 @@ void TowerHanoi::hanoiMenu()
 
 		setSize(inputInteger("\tEnter the number of rings (1..64): ", 1, 64));
 
+		turns = size;
+
 		initializePegs();
 
 		displayPegs();
 
-		updatePegs();
+		updatePegs(turns);
 
 		cout << "\tThe computer has solved the game in " << moves - 1 << " moves.\n\n";
 
@@ -37,11 +47,16 @@ void TowerHanoi::hanoiMenu()
 	} while (choice == 'Y');
 	cout << endl;
 }
-void TowerHanoi::updatePegs()
+//Precondition: an integer named turns
+//Postcondition: calculates hanoi solution
+void TowerHanoi::updatePegs(int turns)
 {
-	
-	if (!(pegC == result))
+	if (turns == 0)  //stop-case: stops when turns is equal to 0
 	{
+		return;
+	}
+	
+	updatePegs(turns - 1);
 		if (size % 2 != 0)
 		{
 			if (moves % 3 == 1)
@@ -231,11 +246,13 @@ void TowerHanoi::updatePegs()
 		}
 		moves++;
 		displayPegs();
-		updatePegs();
-	}
+		updatePegs(turns - 1);
+	
 		
 	
 }
+//Precondition: NA
+//Postcondition: initializes pegs
 void TowerHanoi::initializePegs()
 {
 	while (!pegA.empty())
@@ -261,6 +278,8 @@ void TowerHanoi::initializePegs()
 		result = pegA;
 	}
 }
+//Precondition: NA
+//Postcondition: prints out pegs
 void TowerHanoi::displayPegs()
 {
 	stack<int> tempA(pegA);
