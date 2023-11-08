@@ -1,6 +1,6 @@
 #include "TowerHanoi.h"
 
-//Precondition: An positve integer
+//Precondition: An positive integer
 //Postcondition: Sets size 
 void TowerHanoi::setSize(int newSize)
 {
